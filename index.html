@@ -1,0 +1,2521 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TUBEFOOD — Авторский фастфуд от топ-блогеров</title>
+  <!-- Google Fonts: Montserrat & Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    /* ================= CSS ПЕРЕМЕННЫЕ И СБРОС ================= */
+    :root {
+      --bg-primary: #0d0d10;
+      --bg-secondary: #16161c;
+      --bg-card: #1d1d26;
+      --bg-card-hover: #252530;
+      --border-color: rgba(255, 255, 255, 0.08);
+      --border-hover: rgba(255, 107, 0, 0.45);
+      --text-primary: #ffffff;
+      --text-secondary: #a1a1b5;
+      --text-muted: #6c6c80;
+      --accent-orange: #ff5e00;
+      --accent-orange-hover: #ff7724;
+      --accent-yellow: #ffb800;
+      --accent-red: #ff2a4b;
+      --accent-green: #10b981;
+      --gradient-brand: linear-gradient(135deg, #ff5e00 0%, #ff2a4b 100%);
+      --gradient-gold: linear-gradient(135deg, #ffb800 0%, #ff5e00 100%);
+      --shadow-card: 0 12px 32px rgba(0, 0, 0, 0.45);
+      --shadow-glow: 0 8px 28px rgba(255, 94, 0, 0.35);
+      --radius-sm: 10px;
+      --radius-md: 16px;
+      --radius-lg: 24px;
+      --radius-pill: 999px;
+      --transition: all 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.5;
+      overflow-x: hidden;
+      min-height: 100vh;
+    }
+
+    h1, h2, h3, h4, .brand-font {
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    button, input, select {
+      font-family: inherit;
+      outline: none;
+    }
+
+    button {
+      cursor: pointer;
+      border: none;
+      background: none;
+      color: inherit;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1320px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* ================= HEADER ================= */
+    .header {
+      position: sticky;
+      top: 0;
+      z-index: 90;
+      background: rgba(13, 13, 16, 0.85);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border-bottom: 1px solid var(--border-color);
+      padding: 14px 0;
+    }
+
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: var(--text-primary);
+      flex-shrink: 0;
+    }
+
+    .logo-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      background: var(--gradient-brand);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: var(--shadow-glow);
+    }
+
+    .logo-text {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .logo-title {
+      font-weight: 900;
+      font-size: 1.35rem;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+    }
+
+    .logo-title span {
+      color: var(--accent-orange);
+    }
+
+    .logo-sub {
+      font-size: 0.72rem;
+      color: var(--text-secondary);
+      font-weight: 500;
+    }
+
+    .search-box {
+      position: relative;
+      flex: 1;
+      max-width: 440px;
+    }
+
+    .search-input {
+      width: 100%;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-pill);
+      padding: 11px 40px 11px 42px;
+      color: var(--text-primary);
+      font-size: 0.92rem;
+      transition: var(--transition);
+    }
+
+    .search-input::placeholder {
+      color: var(--text-muted);
+    }
+
+    .search-input:focus {
+      border-color: var(--accent-orange);
+      background: var(--bg-card);
+      box-shadow: 0 0 0 3px rgba(255, 94, 0, 0.15);
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-muted);
+      pointer-events: none;
+    }
+
+    .search-clear {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .search-clear.visible {
+      display: flex;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-shrink: 0;
+    }
+
+    .delivery-pill {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      padding: 8px 14px;
+      border-radius: var(--radius-pill);
+      font-size: 0.82rem;
+      color: var(--text-secondary);
+    }
+
+    .delivery-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent-green);
+      box-shadow: 0 0 8px var(--accent-green);
+    }
+
+    .cart-trigger {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--gradient-brand);
+      color: #fff;
+      padding: 11px 18px;
+      border-radius: var(--radius-pill);
+      font-weight: 700;
+      font-size: 0.92rem;
+      box-shadow: var(--shadow-glow);
+      transition: var(--transition);
+    }
+
+    .cart-trigger:hover {
+      transform: translateY(-2px);
+      filter: brightness(1.08);
+    }
+
+    .cart-badge {
+      background: #fff;
+      color: var(--accent-red);
+      font-weight: 800;
+      font-size: 0.78rem;
+      padding: 2px 8px;
+      border-radius: var(--radius-pill);
+      min-width: 24px;
+      text-align: center;
+    }
+
+    /* ================= HERO BANNER ================= */
+    .hero {
+      padding: 28px 0 18px;
+    }
+
+    .hero-banner {
+      position: relative;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      background: linear-gradient(125deg, #1b1724 0%, #261414 55%, #171720 100%);
+      border: 1px solid var(--border-color);
+      padding: 40px 44px;
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      align-items: center;
+      gap: 32px;
+    }
+
+    .hero-banner::before {
+      content: '';
+      position: absolute;
+      top: -80px;
+      right: -80px;
+      width: 340px;
+      height: 340px;
+      background: radial-gradient(circle, rgba(255, 94, 0, 0.25) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255, 184, 0, 0.14);
+      border: 1px solid rgba(255, 184, 0, 0.35);
+      color: var(--accent-yellow);
+      font-weight: 700;
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding: 6px 14px;
+      border-radius: var(--radius-pill);
+      margin-bottom: 16px;
+    }
+
+    .hero-title {
+      font-size: clamp(1.85rem, 3.6vw, 2.95rem);
+      font-weight: 900;
+      line-height: 1.12;
+      margin-bottom: 14px;
+      letter-spacing: -0.02em;
+    }
+
+    .hero-title span {
+      background: var(--gradient-gold);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-desc {
+      color: var(--text-secondary);
+      font-size: 1rem;
+      max-width: 540px;
+      margin-bottom: 24px;
+    }
+
+    .hero-promos {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .promo-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px dashed rgba(255, 184, 0, 0.5);
+      padding: 8px 14px;
+      border-radius: var(--radius-sm);
+      font-size: 0.82rem;
+      color: var(--text-primary);
+      transition: var(--transition);
+    }
+
+    .promo-chip:hover {
+      background: rgba(255, 184, 0, 0.14);
+      border-style: solid;
+    }
+
+    .promo-chip strong {
+      color: var(--accent-yellow);
+      font-family: 'Montserrat', sans-serif;
+      letter-spacing: 0.04em;
+    }
+
+    .hero-visual {
+      position: relative;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      height: 260px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+    }
+
+    .hero-visual img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .hero-visual-badge {
+      position: absolute;
+      bottom: 14px;
+      left: 14px;
+      right: 14px;
+      background: rgba(13, 13, 16, 0.82);
+      backdrop-filter: blur(10px);
+      padding: 10px 14px;
+      border-radius: var(--radius-sm);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .hero-visual-badge span {
+      font-size: 0.82rem;
+      font-weight: 600;
+    }
+
+    .hero-visual-badge strong {
+      color: var(--accent-orange);
+      font-size: 0.95rem;
+    }
+
+    /* ================= ФИЛЬТРЫ БЛОГЕРОВ И КАТЕГОРИЙ ================= */
+    .filters-section {
+      padding: 16px 0 24px;
+    }
+
+    .section-label {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .bloggers-bar {
+      display: flex;
+      gap: 12px;
+      overflow-x: auto;
+      padding-bottom: 10px;
+      scrollbar-width: none;
+    }
+
+    .bloggers-bar::-webkit-scrollbar {
+      display: none;
+    }
+
+    .blogger-pill {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 16px 8px 8px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-pill);
+      white-space: nowrap;
+      transition: var(--transition);
+      flex-shrink: 0;
+    }
+
+    .blogger-pill:hover {
+      background: var(--bg-card);
+      border-color: rgba(255, 255, 255, 0.2);
+      transform: translateY(-1px);
+    }
+
+    .blogger-pill.active {
+      background: rgba(255, 94, 0, 0.16);
+      border-color: var(--accent-orange);
+      box-shadow: 0 4px 16px rgba(255, 94, 0, 0.22);
+    }
+
+    .blogger-avatar {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: 0.78rem;
+      color: #fff;
+      flex-shrink: 0;
+    }
+
+    .blogger-info {
+      display: flex;
+      flex-direction: column;
+      text-align: left;
+    }
+
+    .blogger-name {
+      font-weight: 700;
+      font-size: 0.88rem;
+      line-height: 1.2;
+    }
+
+    .blogger-subs {
+      font-size: 0.7rem;
+      color: var(--text-secondary);
+    }
+
+    .categories-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 14px;
+      padding-top: 14px;
+      border-top: 1px solid var(--border-color);
+    }
+
+    .category-tabs {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .cat-btn {
+      padding: 8px 16px;
+      border-radius: var(--radius-pill);
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      font-size: 0.86rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+      transition: var(--transition);
+    }
+
+    .cat-btn:hover {
+      color: var(--text-primary);
+      background: var(--bg-card);
+    }
+
+    .cat-btn.active {
+      background: var(--text-primary);
+      color: var(--bg-primary);
+      border-color: var(--text-primary);
+    }
+
+    .results-counter {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+    }
+
+    /* ================= СЕТКА ТОВАРОВ ================= */
+    .menu-section {
+      padding-bottom: 72px;
+    }
+
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+      gap: 24px;
+    }
+
+    .product-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: var(--transition);
+      position: relative;
+      animation: fadeInUp 0.35s ease backwards;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(14px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .product-card:hover {
+      transform: translateY(-5px);
+      border-color: var(--border-hover);
+      background: var(--bg-card-hover);
+      box-shadow: var(--shadow-card);
+    }
+
+    .card-media {
+      position: relative;
+      height: 210px;
+      background: #14141a;
+      overflow: hidden;
+      cursor: pointer;
+    }
+
+    .card-media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .product-card:hover .card-media img {
+      transform: scale(1.06);
+    }
+
+    .card-badges {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      right: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 8px;
+      pointer-events: none;
+    }
+
+    .blogger-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 11px;
+      border-radius: var(--radius-pill);
+      font-size: 0.74rem;
+      font-weight: 800;
+      color: #fff;
+      background: rgba(13, 13, 16, 0.82);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+    }
+
+    .blogger-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+    }
+
+    .tag-badge {
+      padding: 4px 10px;
+      border-radius: var(--radius-pill);
+      font-size: 0.7rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .tag-hit {
+      background: var(--accent-red);
+      color: #fff;
+    }
+
+    .tag-spicy {
+      background: var(--accent-orange);
+      color: #fff;
+    }
+
+    .tag-new {
+      background: var(--accent-yellow);
+      color: #111;
+    }
+
+    .card-body {
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+
+    .card-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.76rem;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+    }
+
+    .card-title {
+      font-size: 1.12rem;
+      font-weight: 800;
+      margin-bottom: 8px;
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+
+    .card-title:hover {
+      color: var(--accent-orange);
+    }
+
+    .card-desc {
+      font-size: 0.86rem;
+      color: var(--text-secondary);
+      margin-bottom: 16px;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      flex: 1;
+    }
+
+    .card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding-top: 14px;
+      border-top: 1px solid var(--border-color);
+    }
+
+    .price-block {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .old-price {
+      font-size: 0.76rem;
+      color: var(--text-muted);
+      text-decoration: line-through;
+    }
+
+    .current-price {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1.22rem;
+      font-weight: 800;
+      color: var(--text-primary);
+    }
+
+    .add-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 18px;
+      border-radius: var(--radius-pill);
+      background: var(--accent-orange);
+      color: #fff;
+      font-weight: 700;
+      font-size: 0.88rem;
+      transition: var(--transition);
+    }
+
+    .add-btn:hover {
+      background: var(--accent-orange-hover);
+      transform: scale(1.03);
+    }
+
+    .qty-control {
+      display: inline-flex;
+      align-items: center;
+      background: var(--bg-secondary);
+      border: 1px solid var(--accent-orange);
+      border-radius: var(--radius-pill);
+      padding: 3px;
+    }
+
+    .qty-btn {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 1.05rem;
+      color: var(--text-primary);
+      transition: background 0.15s;
+    }
+
+    .qty-btn:hover {
+      background: rgba(255, 94, 0, 0.25);
+    }
+
+    .qty-val {
+      min-width: 28px;
+      text-align: center;
+      font-weight: 700;
+      font-size: 0.9rem;
+    }
+
+    /* Пустой результат поиска */
+    .empty-state {
+      text-align: center;
+      padding: 64px 20px;
+      background: var(--bg-secondary);
+      border-radius: var(--radius-lg);
+      border: 1px dashed var(--border-color);
+      display: none;
+    }
+
+    .empty-state.visible {
+      display: block;
+    }
+
+    .empty-state h3 {
+      font-size: 1.3rem;
+      margin-bottom: 8px;
+    }
+
+    .empty-state p {
+      color: var(--text-secondary);
+      margin-bottom: 20px;
+    }
+
+    .reset-filters-btn {
+      padding: 10px 22px;
+      border-radius: var(--radius-pill);
+      background: var(--accent-orange);
+      color: #fff;
+      font-weight: 700;
+    }
+
+    /* ================= МОДАЛЬНОЕ ОКНО ТОВАРА ================= */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(5, 5, 8, 0.78);
+      backdrop-filter: blur(8px);
+      z-index: 120;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      opacity: 0;
+      transition: opacity 0.25s ease;
+    }
+
+    .modal-backdrop.open {
+      display: flex;
+      opacity: 1;
+    }
+
+    .product-modal {
+      background: var(--bg-card);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: var(--radius-lg);
+      max-width: 780px;
+      width: 100%;
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: 1fr 1.1fr;
+      position: relative;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.75);
+      transform: scale(0.95);
+      transition: transform 0.25s ease;
+    }
+
+    .modal-backdrop.open .product-modal {
+      transform: scale(1);
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: rgba(13, 13, 16, 0.75);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 5;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      transition: var(--transition);
+    }
+
+    .modal-close:hover {
+      background: var(--accent-red);
+      transform: rotate(90deg);
+    }
+
+    .modal-image-wrap {
+      height: 100%;
+      min-height: 320px;
+      background: #121218;
+    }
+
+    .modal-image-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .modal-content {
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .modal-blogger-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .modal-title {
+      font-size: 1.5rem;
+      font-weight: 900;
+      line-height: 1.2;
+    }
+
+    .modal-quote {
+      background: rgba(255, 184, 0, 0.08);
+      border-left: 3px solid var(--accent-yellow);
+      padding: 10px 14px;
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      font-size: 0.85rem;
+      font-style: italic;
+      color: #f3e8d2;
+    }
+
+    .modal-section-title {
+      font-size: 0.76rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-muted);
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .modal-ingredients {
+      font-size: 0.88rem;
+      color: var(--text-secondary);
+    }
+
+    .nutrition-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+      background: var(--bg-secondary);
+      padding: 10px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border-color);
+      text-align: center;
+    }
+
+    .nutri-item strong {
+      display: block;
+      font-size: 0.92rem;
+      color: var(--text-primary);
+    }
+
+    .nutri-item span {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+    }
+
+    .modal-actions {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      padding-top: 12px;
+      border-top: 1px solid var(--border-color);
+    }
+
+    /* ================= ВЫДВИЖНАЯ КОРЗИНА (DRAWER) ================= */
+    .cart-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(5, 5, 8, 0.72);
+      backdrop-filter: blur(5px);
+      z-index: 110;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+
+    .cart-overlay.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .cart-drawer {
+      position: fixed;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      width: 100%;
+      max-width: 450px;
+      background: var(--bg-secondary);
+      border-left: 1px solid var(--border-color);
+      z-index: 115;
+      display: flex;
+      flex-direction: column;
+      transform: translateX(100%);
+      transition: transform 0.32s cubic-bezier(0.22, 1, 0.36, 1);
+      box-shadow: -20px 0 50px rgba(0, 0, 0, 0.65);
+    }
+
+    .cart-drawer.open {
+      transform: translateX(0);
+    }
+
+    .cart-header {
+      padding: 20px 24px;
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .cart-header h2 {
+      font-size: 1.25rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .clear-cart-btn {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      transition: color 0.2s;
+    }
+
+    .clear-cart-btn:hover {
+      color: var(--accent-red);
+    }
+
+    .cart-body {
+      flex: 1;
+      overflow-y: auto;
+      padding: 20px 24px;
+    }
+
+    .cart-empty {
+      text-align: center;
+      padding: 60px 16px;
+      color: var(--text-secondary);
+    }
+
+    .cart-empty svg {
+      margin: 0 auto 16px;
+      color: var(--text-muted);
+    }
+
+    .cart-item {
+      display: flex;
+      gap: 14px;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--border-color);
+      align-items: center;
+    }
+
+    .cart-item-img {
+      width: 68px;
+      height: 68px;
+      border-radius: var(--radius-sm);
+      object-fit: cover;
+      flex-shrink: 0;
+      background: #121218;
+    }
+
+    .cart-item-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .cart-item-blogger {
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: var(--accent-orange);
+      text-transform: uppercase;
+    }
+
+    .cart-item-title {
+      font-weight: 700;
+      font-size: 0.92rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      margin-bottom: 4px;
+    }
+
+    .cart-item-price {
+      font-weight: 800;
+      font-size: 0.92rem;
+      color: var(--text-primary);
+    }
+
+    .cart-item-controls {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--bg-card);
+      padding: 4px;
+      border-radius: var(--radius-pill);
+      border: 1px solid var(--border-color);
+    }
+
+    .cart-qty-btn {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+    }
+
+    .cart-qty-btn:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    /* Промокод и форма заказа в корзине */
+    .promo-box {
+      margin-top: 18px;
+      background: var(--bg-card);
+      padding: 14px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-color);
+    }
+
+    .promo-input-row {
+      display: flex;
+      gap: 8px;
+    }
+
+    .promo-input {
+      flex: 1;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      padding: 9px 12px;
+      color: var(--text-primary);
+      font-size: 0.86rem;
+      text-transform: uppercase;
+    }
+
+    .promo-apply-btn {
+      padding: 9px 14px;
+      border-radius: var(--radius-sm);
+      background: rgba(255, 94, 0, 0.18);
+      color: var(--accent-orange);
+      font-weight: 700;
+      font-size: 0.84rem;
+      border: 1px solid rgba(255, 94, 0, 0.35);
+      transition: var(--transition);
+    }
+
+    .promo-apply-btn:hover {
+      background: var(--accent-orange);
+      color: #fff;
+    }
+
+    .promo-status {
+      font-size: 0.78rem;
+      margin-top: 8px;
+      display: none;
+    }
+
+    .promo-status.success {
+      display: block;
+      color: var(--accent-green);
+    }
+
+    .promo-status.error {
+      display: block;
+      color: var(--accent-red);
+    }
+
+    .checkout-form {
+      margin-top: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.78rem;
+      color: var(--text-secondary);
+      margin-bottom: 5px;
+      font-weight: 600;
+    }
+
+    .form-control {
+      width: 100%;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      padding: 10px 12px;
+      color: var(--text-primary);
+      font-size: 0.88rem;
+    }
+
+    .form-control:focus {
+      border-color: var(--accent-orange);
+    }
+
+    .payment-methods {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+    }
+
+    .pay-option {
+      padding: 9px 6px;
+      border-radius: var(--radius-sm);
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      font-size: 0.78rem;
+      font-weight: 600;
+      text-align: center;
+      color: var(--text-secondary);
+      transition: var(--transition);
+    }
+
+    .pay-option.active {
+      border-color: var(--accent-orange);
+      background: rgba(255, 94, 0, 0.14);
+      color: var(--text-primary);
+    }
+
+    .cart-footer {
+      padding: 18px 24px;
+      border-top: 1px solid var(--border-color);
+      background: var(--bg-primary);
+    }
+
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.86rem;
+      color: var(--text-secondary);
+      margin-bottom: 6px;
+    }
+
+    .summary-row.discount {
+      color: var(--accent-green);
+    }
+
+    .summary-total {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1.2rem;
+      font-weight: 900;
+      margin: 10px 0 14px;
+    }
+
+    .checkout-submit-btn {
+      width: 100%;
+      padding: 14px;
+      border-radius: var(--radius-pill);
+      background: var(--gradient-brand);
+      color: #fff;
+      font-weight: 800;
+      font-size: 0.96rem;
+      box-shadow: var(--shadow-glow);
+      transition: var(--transition);
+    }
+
+    .checkout-submit-btn:hover {
+      filter: brightness(1.08);
+      transform: translateY(-1px);
+    }
+
+    /* ================= ЭКРАН ПОДТВЕРЖДЕНИЯ ЗАКАЗА ================= */
+    .receipt-modal {
+      background: var(--bg-card);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: var(--radius-lg);
+      max-width: 440px;
+      width: 100%;
+      padding: 32px 28px;
+      text-align: center;
+      position: relative;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8);
+    }
+
+    .receipt-check {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: rgba(16, 185, 129, 0.16);
+      color: var(--accent-green);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 16px;
+      border: 2px solid var(--accent-green);
+    }
+
+    .receipt-number {
+      display: inline-block;
+      background: var(--bg-secondary);
+      border: 1px dashed var(--accent-orange);
+      color: var(--accent-orange);
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      padding: 6px 16px;
+      border-radius: var(--radius-pill);
+      font-size: 0.95rem;
+      margin: 10px 0 16px;
+    }
+
+    .receipt-details {
+      background: var(--bg-secondary);
+      border-radius: var(--radius-md);
+      padding: 16px;
+      text-align: left;
+      font-size: 0.85rem;
+      margin-bottom: 20px;
+      border: 1px solid var(--border-color);
+    }
+
+    .receipt-line {
+      display: flex;
+      justify-content: space-between;
+      padding: 5px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .receipt-line:last-child {
+      border-bottom: none;
+    }
+
+    /* ================= TOAST УВЕДОМЛЕНИЯ ================= */
+    .toast-container {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 150;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      pointer-events: none;
+    }
+
+    .toast {
+      background: rgba(29, 29, 38, 0.95);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 94, 0, 0.45);
+      color: #fff;
+      padding: 11px 20px;
+      border-radius: var(--radius-pill);
+      font-size: 0.88rem;
+      font-weight: 600;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      animation: toastIn 0.25s ease forwards;
+    }
+
+    @keyframes toastIn {
+      from {
+        opacity: 0;
+        transform: translateY(16px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* ================= FOOTER ================= */
+    .footer {
+      border-top: 1px solid var(--border-color);
+      background: var(--bg-secondary);
+      padding: 36px 0;
+      color: var(--text-secondary);
+      font-size: 0.85rem;
+    }
+
+    .footer-inner {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+    }
+
+    /* ================= АДАПТИВНОСТЬ ================= */
+    @media (max-width: 920px) {
+      .hero-banner {
+        grid-template-columns: 1fr;
+        padding: 28px 24px;
+      }
+      .hero-visual {
+        height: 210px;
+      }
+      .delivery-pill {
+        display: none;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .product-modal {
+        grid-template-columns: 1fr;
+        max-height: 90vh;
+        overflow-y: auto;
+      }
+      .modal-image-wrap {
+        min-height: 220px;
+        max-height: 240px;
+      }
+      .header-inner {
+        flex-wrap: wrap;
+      }
+      .search-box {
+        order: 3;
+        max-width: 100%;
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ================= ШАПКА САЙТА ================= -->
+  <header class="header">
+    <div class="container header-inner">
+      <a href="#" class="logo" id="logoReset">
+        <div class="logo-icon">
+          <!-- Иконка пламени / бургера SVG -->
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/>
+          </svg>
+        </div>
+        <div class="logo-text">
+          <span class="logo-title brand-font">TUBE<span>FOOD</span></span>
+          <span class="logo-sub">Кухня топ-блогеров</span>
+        </div>
+      </a>
+
+      <div class="search-box">
+        <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        <input type="text" id="searchInput" class="search-input" placeholder="Найти Баг-Бургер, Куплинова или острый ролл..." />
+        <button type="button" id="searchClear" class="search-clear" title="Очистить поиск">✕</button>
+      </div>
+
+      <div class="header-actions">
+        <div class="delivery-pill">
+          <span class="delivery-dot"></span>
+          <span>Доставка 25–35 мин</span>
+        </div>
+
+        <button type="button" class="cart-trigger" id="openCartBtn">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+            <circle cx="9" cy="21" r="1"></circle>
+            <circle cx="20" cy="21" r="1"></circle>
+            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+          </svg>
+          <span>Корзина</span>
+          <span class="cart-badge" id="headerCartCount">0</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ================= ГЛАВНЫЙ БАННЕР ================= -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-banner">
+        <div>
+          <div class="hero-tag">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+            </svg>
+            Официальные коллаборации 2026
+          </div>
+          <h1 class="hero-title">Легендарный фастфуд от любимых <span>ютуберов и стримеров</span></h1>
+          <p class="hero-desc">
+            Сочные двойные бургеры по рецепту Мармока, ночной комбо-сет от Куплинова, хрустящий бакет Бустера и секретные соусы Утопии. Горячая доставка прямо к твоему стриму!
+          </p>
+          <div class="hero-promos">
+            <button type="button" class="promo-chip" data-copy-promo="MARMOK10" title="Нажмите, чтобы скопировать и применить">
+              <span>Скидка 10%:</span>
+              <strong>MARMOK10</strong>
+            </button>
+            <button type="button" class="promo-chip" data-copy-promo="KUPLINOV20" title="Нажмите, чтобы скопировать и применить">
+              <span>Скидка 20%:</span>
+              <strong>KUPLINOV20</strong>
+            </button>
+          </div>
+        </div>
+
+        <div class="hero-visual">
+          <img
+            src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=900&q=85"
+            alt="Фирменный двойной бургер TUBEFOOD"
+            onerror="handleImgError(this, 'TUBEFOOD SPECIAL')"
+          />
+          <div class="hero-visual-badge">
+            <span>Хит недели: Баг-Бургер от Marmok</span>
+            <strong>449 ₽</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= ФИЛЬТРЫ БЛОГЕРОВ И КАТЕГОРИЙ ================= -->
+  <section class="filters-section">
+    <div class="container">
+      <div class="section-label">Выбери своего блогера</div>
+      <div class="bloggers-bar" id="bloggersBar">
+        <!-- Генерируется через JS -->
+      </div>
+
+      <div class="categories-bar">
+        <div class="category-tabs" id="categoryTabs">
+          <!-- Генерируется через JS -->
+        </div>
+        <div class="results-counter" id="resultsCounter">Показано 14 блюд</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= КАТАЛОГ БЛЮД ================= -->
+  <main class="menu-section">
+    <div class="container">
+      <div class="products-grid" id="productsGrid">
+        <!-- Карточки товаров рендерятся через JS -->
+      </div>
+
+      <div class="empty-state" id="emptyState">
+        <h3>Ничего не нашлось</h3>
+        <p>Похоже, такой вкуснятины пока нет в меню или сработали строгие фильтры.</p>
+        <button type="button" class="reset-filters-btn" id="resetAllFiltersBtn">Сбросить фильтры</button>
+      </div>
+    </div>
+  </main>
+
+  <!-- ================= ФУТЕР ================= -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div>
+        <strong style="color: #fff; font-family: 'Montserrat', sans-serif;">TUBEFOOD</strong> — сеть авторских дарк-китченов и доставки фастфуда от популярных блогеров.
+      </div>
+      <div>
+        Промокоды для теста: <strong style="color: var(--accent-yellow);">MARMOK10</strong> (−10%), <strong style="color: var(--accent-yellow);">KUPLINOV20</strong> (−20%)
+      </div>
+    </div>
+  </footer>
+
+  <!-- ================= МОДАЛЬНОЕ ОКНО ДЕТАЛЕЙ БЛЮДА ================= -->
+  <div class="modal-backdrop" id="productModalBackdrop">
+    <div class="product-modal" id="productModalContent">
+      <!-- Заполняется через JS -->
+    </div>
+  </div>
+
+  <!-- ================= ВЫДВИЖНАЯ КОРЗИНА ================= -->
+  <div class="cart-overlay" id="cartOverlay"></div>
+  <aside class="cart-drawer" id="cartDrawer" aria-label="Корзина заказов">
+    <div class="cart-header">
+      <h2>
+        Ваш заказ
+        <span class="cart-badge" id="drawerCartCount">0</span>
+      </h2>
+      <div style="display: flex; align-items: center; gap: 14px;">
+        <button type="button" class="clear-cart-btn" id="clearCartBtn">Очистить</button>
+        <button type="button" class="modal-close" style="position: static;" id="closeCartBtn" title="Закрыть корзину">✕</button>
+      </div>
+    </div>
+
+    <div class="cart-body" id="cartBody">
+      <!-- Содержимое корзины рендерится через JS -->
+    </div>
+
+    <div class="cart-footer" id="cartFooter" style="display: none;">
+      <div class="summary-row">
+        <span>Сумма блюд</span>
+        <span id="subtotalAmount">0 ₽</span>
+      </div>
+      <div class="summary-row discount" id="discountRow" style="display: none;">
+        <span id="discountLabel">Скидка по промокоду</span>
+        <span id="discountAmount">-0 ₽</span>
+      </div>
+      <div class="summary-row">
+        <span>Доставка курьером</span>
+        <span id="deliveryFeeText" style="color: var(--accent-green); font-weight: 600;">Бесплатно</span>
+      </div>
+      <div class="summary-total">
+        <span>Итого к оплате</span>
+        <span id="totalAmount">0 ₽</span>
+      </div>
+      <button type="button" class="checkout-submit-btn" id="submitOrderBtn">
+        Оформить заказ
+      </button>
+    </div>
+  </aside>
+
+  <!-- ================= МОДАЛЬНОЕ ОКНО ПОДТВЕРЖДЕНИЯ ЗАКАЗА ================= -->
+  <div class="modal-backdrop" id="receiptModalBackdrop">
+    <div class="receipt-modal" id="receiptModalContent">
+      <!-- Заполняется через JS -->
+    </div>
+  </div>
+
+  <!-- Контейнер для уведомлений -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <script>
+    /* ================= FALLBACK ДЛЯ ИЗОБРАЖЕНИЙ ================= */
+    function handleImgError(imgElement, labelText) {
+      imgElement.onerror = null;
+      const safeLabel = (labelText || 'TUBEFOOD').replace(/[<>&"']/g, '');
+      const svg = `
+        <svg xmlns="http://www.w3.org/2000/svg" width="800" height="500" viewBox="0 0 800 500">
+          <defs>
+            <linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#2a1810"/>
+              <stop offset="50%" stop-color="#1d1d26"/>
+              <stop offset="100%" stop-color="#33141c"/>
+            </linearGradient>
+          </defs>
+          <rect width="800" height="500" fill="url(#g)"/>
+          <circle cx="400" cy="215" r="56" fill="rgba(255,94,0,0.2)" stroke="#ff5e00" stroke-width="4"/>
+          <path d="M375 215h50M400 190v50" stroke="#ffb800" stroke-width="5" stroke-linecap="round"/>
+          <text x="400" y="315" fill="#ffffff" font-family="Montserrat, Arial, sans-serif" font-size="26" font-weight="800" text-anchor="middle">${safeLabel}</text>
+          <text x="400" y="348" fill="#a1a1b5" font-family="Inter, Arial, sans-serif" font-size="16" text-anchor="middle">Свежее фото готовится на кухне</text>
+        </svg>
+      `;
+      imgElement.src = 'data:image/svg+xml;charset=UTF-8,' + encodeURIComponent(svg);
+    }
+
+    /* ================= БАЗА БЛОГЕРОВ ================= */
+    const BLOGGERS = [
+      { id: 'all', name: 'Все блогеры', subs: 'Полное меню', color: '#ff5e00', initials: 'ВСЕ' },
+      { id: 'marmok', name: 'Мармок', subs: '17.6M подписчиков', color: '#ff6b00', initials: 'MR' },
+      { id: 'kuplinov', name: 'Куплинов', subs: '16.8M подписчиков', color: '#e11d48', initials: 'KP' },
+      { id: 'a4', name: 'Влад А4', subs: '65.0M подписчиков', color: '#ec4899', initials: 'A4' },
+      { id: 'maslennikov', name: 'Масленников', subs: '18.2M подписчиков', color: '#6366f1', initials: 'ДМ' },
+      { id: 'utopia', name: 'Утопия Шоу', subs: '6.4M подписчиков', color: '#10b981', initials: 'UT' },
+      { id: 'buster', name: 'Бустер', subs: '4.3M подписчиков', color: '#f59e0b', initials: 'BS' }
+    ];
+
+    const CATEGORIES = [
+      { id: 'all', name: 'Все блюда' },
+      { id: 'burgers', name: 'Бургеры' },
+      { id: 'combo', name: 'Комбо-наборы' },
+      { id: 'snacks', name: 'Снэки и курица' },
+      { id: 'drinks', name: 'Напитки' }
+    ];
+
+    /* ================= КАТАЛОГ ТОВАРОВ (ТОЛЬКО РЕАЛЬНЫЕ ФОТО UNSPLASH) ================= */
+    const PRODUCTS = [
+      {
+        id: 1,
+        title: 'Баг-Бургер 2.0',
+        bloggerId: 'marmok',
+        category: 'burgers',
+        price: 449,
+        oldPrice: 520,
+        weight: '380 г',
+        tag: 'Хит продаж',
+        tagType: 'hit',
+        image: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=800&q=80',
+        shortDesc: 'Двойная говяжья котлета прожарки medium, хрустящий бекон, чеддер и фирменный острый соус с халапеньо.',
+        ingredients: 'Бриошь с кунжутом, 2 котлеты из мраморной говядины, сыр чеддер, бекон гриль, перец халапеньо, красный лук, маринованные огурцы, острый соус «Фича».',
+        quote: '«Это не баг, это фича! Острота такая, что FPS в глазах подскакивает до 240!» — Marmok',
+        nutrition: { kcal: 790, protein: 46, fat: 48, carbs: 42 }
+      },
+      {
+        id: 2,
+        title: 'Фризы с беконом',
+        bloggerId: 'marmok',
+        category: 'snacks',
+        price: 269,
+        oldPrice: null,
+        weight: '240 г',
+        tag: 'Хруст 100%',
+        tagType: 'new',
+        image: 'https://images.unsplash.com/photo-1573080496219-bb080dd4f877?auto=format&fit=crop&w=800&q=80',
+        shortDesc: 'Золотистый картофель фри под расплавленным сырным соусом с крошкой жареного бекона и зелёным луком.',
+        ingredients: 'Картофель фри крупной нарезки, тёплый соус чеддер, хрустящий бекон, зелёный лук, копчёная паприка.',
+        quote: '«Идеально залетает, пока ждёшь респаун в катке.» — Marmok',
+        nutrition: { kcal: 510, protein: 14, fat: 29, carbs: 48 }
+      },
+      {
+        id: 3,
+        title: 'Куплиновский Комбо-Хоррор',
+        bloggerId: 'kuplinov',
+        category: 'combo',
+        price: 789,
+        oldPrice: 940,
+        weight: '890 г',
+        tag: 'Мега-сет',
+        tagType: 'hit',
+        image: 'https://images.unsplash.com/photo-1594212699903-ec8a3eca50f5?auto=format&fit=crop&w=800&q=80',
+        shortDesc: 'Огромный тройной бургер, большая порция картошки фри, чесночный соус и ледяная кола для ночных прохождений.',
+        ingredients: 'Гигантский бургер с тремя котлетами, картофель фри XL, соус чесночный ранч, газированный напиток 0.5 л.',
+        quote: '«Дружище, перед ночным хоррором нужно плотно подкрепиться, иначе скримеры не вывезти!» — Куплинов',
+        nutrition: { kcal: 1380, protein: 64, fat: 72, carbs: 118 }
+      },
+      {
+        id: 4,
+        title: 'Крылышки на стриме',
+        bloggerId: 'kuplinov',
+        category: 'snacks',
+        price: 399,
+        oldPrice: 450,
+        weight: '350 г',
+        tag: 'Острые',
+        tagType: 'spicy',
+        image: 'https://images.unsplash.com/photo-1567620832903-9fc6debc209f?auto=format&fit=crop&w=800&q=80',
+        shortDesc: '9 сочных куриных крылышек в пряной глазури барбекю-чили с кунжутом и охлаждающим соусом блю-чиз.',
+        ingredients: 'Куриные крылья, медово-перечная глазурь BBQ, белый кунжут, соус блю-чиз.',
+        quote: '«Осторожно, пальчики оближешь — придётся потом геймпад оттирать!» — Куплинов',
+        nutrition: { kcal: 680, protein: 48, fat: 44, carbs: 22 }
+      },
+      {
+        id: 5,
+        title: 'Ламба-Бокс А4',
+        bloggerId: 'a4',
+        category: 'combo',
+        price: 649,
+        oldPrice: 750,
+        weight: '620 г',
+        tag: 'Для компании',
+        tagType: 'new',
+        image: 'https://images.unsplash.com/photo-1551782450-a2132b4ba21d?auto=format&fit=crop&w=800&q=80',
+        shortDesc: 'Яркий комбо-бокс: сочный чизбургер, золотистые наггетсы, картошка фри и два фирменных соуса.',
+        ingredients: 'Двойной чизбургер, куриные наггетсы (6 шт.), картофель фри стандарт, сырный соус и кетчуп.',
+        quote: '«Ребята, этот бокс заряжен на максимальную скорость и крутые челленджи!» — Влад А4',
+        nutrition: { kcal: 1090, protein: 45, fat: 54, carbs: 104 }
+      },
+      {
+        id: 6,
+        title: 'Розовый лимонад А4',
+        bloggerId: 'a4',
+        category: 'drinks',
+        price: 199,
+        oldPrice: null,
+        weight: '450 мл',
+        tag: 'Освежает',
+        tagType: 'new',
+        image: 'https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&w=800&q=80',
+        shortDesc: 'Искрящийся ягодный лимонад со вкусом спелой малины, клубники и свежего лайма со льдом.',
+        ingredients: 'Газированная артезианская вода, пюре малины и клубники, сок лайма, тростниковый сироп, лёд.',
+        quote: '«Самый фотогеничный и освежающий лимонад для твоих сторис!» — Влад А4',
+        nutrition: { kcal: 145, protein: 0, fat: 0, carbs: 36 }
+      },
+      {
+        id: 7,
+        title: 'Гостбастер Бургер',
+        bloggerId: 'maslennikov',
+        category: 'burgers',
+        price: 489,
+        oldPrice: 560,
+        weight: '410 г',
+        tag: 'Чёрная булка',
+        tagType: 'hit',
+        image: 'https://images.unsplash.com/photo-1582196016295-f8c8bd4b3a99?auto=format&fit=crop&w=800&q=80',
+        shortDesc: 'Мистический бургер на угольно-чёрной булочке бриошь с говядиной, трюфельным айоли и карамелизированным луком.',
+        ingredients: 'Чёрная булочка с чернилами каракатицы, мраморная говядина, сыр гауда, трюфельный соус, луковый конфитюр, руккола.',
+        quote: '«Здесь нет никакой мистики — только чистый вкус мраморной говядины!» — Дима Масленников',
+        nutrition: { kcal: 740, protein: 39, fat: 43, carbs: 48 }
+      },
+      {
+        id: 8,
+        title: 'Острый челлендж-ролл',
+        bloggerId: 'maslennikov',
+        category: 'snacks',
+        price: 349,
+        oldPrice: null,
+        weight: '310 г',
+        tag: 'Огненный',
+        tagType: 'spicy',
+        image: 'https://images.unsplash.com/photo-1626700051175-6818013e1d4f?auto=format&fit=crop&w=800&q=80',
+        shortDesc: 'Пшеничная тортилья с хрустящими стрипсами, овощами, перцем чили и огненным соусом «Перевал».',
+        ingredients: 'Тортилья на гриле, куриные стрипсы, салат айсберг, томаты, красный перец чили, соус шрирача-майонез.',
+        quote: '«Кто доест до конца без глотка воды — настоящий герой GhostBuster!» — Дима Масленников',
+        nutrition: { kcal: 590, protein: 31, fat: 26, carbs: 56 }
+      },
+      {
+        id: 9,
+        title: 'Топ Сикрет Бургер',
+        bloggerId: 'utopia',
+        category: 'burgers',
+        price: 469,
+        oldPrice: null,
+        weight: '395 г',
+        tag: 'Секретный соус',
+        tagType: 'new',
+        image: 'https://images.unsplash.com/photo-1553979459-d2229ba7433b?auto=format&fit=crop&w=800&q=80',
+        shortDesc: 'Бургер с засекреченным составом соуса, двойным сыром, хрустящим луком фри и нежной котлетой.',
+        ingredients: 'Картофельная булочка, сочная говяжья котлета, чеддер и моцарелла, хрустящий лук фри, секретный соус Утопии.',
+        quote: '«Мы провели расследование и доказали: вкуснее этого бургера в галактике нет!» — Утопия Шоу',
+        nutrition: { kcal: 760, protein: 41, fat: 45, carbs: 46 }
+      },
+      {
+        id: 10,
+        title: 'Мистический шейк',
+        bloggerId: 'utopia',
+        category: 'drinks',
+        price: 259,
+        oldPrice: 299,
+        weight: '400 мл',
+        tag: 'Десерт',
+        tagType: 'new',
+        image: 'https://images.unsplash.com/photo-1572490122747-3968b75cc699?auto=format&fit=crop&w=800&q=80',
+        shortDesc: 'Густой молочный коктейль с пломбиром, шоколадной крошкой, карамелью и шапкой взбитых сливок.',
+        ingredients: 'Натуральный пломбир, молоко, солёная карамель, тёртый бельгийский шоколад, взбитые сливки.',
+        quote: '«Кажется, это инопланетная технология, но на самом деле — чистая физика вкуса!» — Утопия Шоу',
+        nutrition: { kcal: 460, protein: 9, fat: 21, carbs: 58 }
+      },
+      {
+        id: 11,
+        title: 'Полковник Бустеренко Бакет',
+        bloggerId: 'buster',
+        category: 'snacks',
+        price: 699,
+        oldPrice: 820,
+        weight: '750 г',
+        tag: 'Хит стримов',
+        tagType: 'hit',
+        image: 'https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?auto=format&fit=crop&w=800&q=80',
+        shortDesc: 'Большой бакет хрустящей курочки в секретной панировке: 8 стрипсов, 6 крыльев и 8 наггетсов.',
+        ingredients: 'Куриное филе в хрустящей панировке (8 шт.), острые крылышки (6 шт.), наггетсы (8 шт.), 2 соуса на выбор.',
+        quote: '«Сюда-а-а! Лучший бакет для сквада на ночной потный стрим!» — Бустер',
+        nutrition: { kcal: 1420, protein: 92, fat: 84, carbs: 74 }
+      },
+      {
+        id: 12,
+        title: 'Сквад-Комбо Бустера',
+        bloggerId: 'buster',
+        category: 'combo',
+        price: 849,
+        oldPrice: 990,
+        weight: '960 г',
+        tag: 'На двоих',
+        tagType: 'hit',
+        image: 'https://images.unsplash.com/photo-1561758033-d89a9ad46330?auto=format&fit=crop&w=800&q=80',
+        shortDesc: 'Два сочных чикенбургера, большая картошка фри, куриные стрипсы и два холодных напитка.',
+        ingredients: '2 криспи-чикенбургера, картофель фри XL, куриные стрипсы (4 шт.), 2 холодных напитка по 0.4 л.',
+        quote: '«Затащил клатч — закажи сквад-комбо и отпразднуй как чемпион!» — Бустер',
+        nutrition: { kcal: 1560, protein: 68, fat: 76, carbs: 148 }
+      }
+    ];
+
+    /* ================= ПРОМОКОДЫ ================= */
+    const PROMOCODES = {
+      'MARMOK10': { discountPercent: 10, label: 'Скидка 10% от Мармока' },
+      'KUPLINOV20': { discountPercent: 20, label: 'Скидка 20% от Куплинова' },
+      'TUBEFOOD': { discountPercent: 15, label: 'Скидка 15% новичкам' }
+    };
+
+    /* ================= СОСТОЯНИЕ ПРИЛОЖЕНИЯ ================= */
+    const state = {
+      selectedBlogger: 'all',
+      selectedCategory: 'all',
+      searchQuery: '',
+      cart: JSON.parse(localStorage.getItem('tubefood_cart') || '[]'),
+      appliedPromo: null,
+      paymentMethod: 'Картой онлайн'
+    };
+
+    /* ================= DOM ЭЛЕМЕНТЫ ================= */
+    const bloggersBar = document.getElementById('bloggersBar');
+    const categoryTabs = document.getElementById('categoryTabs');
+    const productsGrid = document.getElementById('productsGrid');
+    const emptyState = document.getElementById('emptyState');
+    const resultsCounter = document.getElementById('resultsCounter');
+    const searchInput = document.getElementById('searchInput');
+    const searchClear = document.getElementById('searchClear');
+
+    const headerCartCount = document.getElementById('headerCartCount');
+    const drawerCartCount = document.getElementById('drawerCartCount');
+    const cartDrawer = document.getElementById('cartDrawer');
+    const cartOverlay = document.getElementById('cartOverlay');
+    const cartBody = document.getElementById('cartBody');
+    const cartFooter = document.getElementById('cartFooter');
+
+    const productModalBackdrop = document.getElementById('productModalBackdrop');
+    const productModalContent = document.getElementById('productModalContent');
+    const receiptModalBackdrop = document.getElementById('receiptModalBackdrop');
+    const receiptModalContent = document.getElementById('receiptModalContent');
+    const toastContainer = document.getElementById('toastContainer');
+
+    /* ================= УТИЛИТЫ ================= */
+    function formatPrice(num) {
+      return num.toLocaleString('ru-RU') + ' ₽';
+    }
+
+    function saveCart() {
+      localStorage.setItem('tubefood_cart', JSON.stringify(state.cart));
+    }
+
+    function getBloggerById(id) {
+      return BLOGGERS.find(b => b.id === id) || BLOGGERS[0];
+    }
+
+    function showToast(message) {
+      const toast = document.createElement('div');
+      toast.className = 'toast';
+      toast.innerHTML = `
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ff5e00" stroke-width="2.5">
+          <polyline points="20 6 9 17 4 12"></polyline>
+        </svg>
+        <span>${message}</span>
+      `;
+      toastContainer.appendChild(toast);
+      setTimeout(() => {
+        toast.style.opacity = '0';
+        toast.style.transform = 'translateY(10px)';
+        toast.style.transition = 'all 0.25s ease';
+        setTimeout(() => toast.remove(), 250);
+      }, 2400);
+    }
+
+    /* ================= РЕНДЕР ФИЛЬТРОВ ================= */
+    function renderBloggers() {
+      bloggersBar.innerHTML = BLOGGERS.map(b => {
+        const isActive = state.selectedBlogger === b.id;
+        return `
+          <button type="button" class="blogger-pill ${isActive ? 'active' : ''}" data-blogger="${b.id}">
+            <div class="blogger-avatar" style="background: ${b.color};">${b.initials}</div>
+            <div class="blogger-info">
+              <span class="blogger-name">${b.name}</span>
+              <span class="blogger-subs">${b.subs}</span>
+            </div>
+          </button>
+        `;
+      }).join('');
+
+      bloggersBar.querySelectorAll('.blogger-pill').forEach(btn => {
+        btn.addEventListener('click', () => {
+          state.selectedBlogger = btn.dataset.blogger;
+          renderBloggers();
+          renderProducts();
+        });
+      });
+    }
+
+    function renderCategories() {
+      categoryTabs.innerHTML = CATEGORIES.map(c => {
+        const isActive = state.selectedCategory === c.id;
+        return `
+          <button type="button" class="cat-btn ${isActive ? 'active' : ''}" data-cat="${c.id}">
+            ${c.name}
+          </button>
+        `;
+      }).join('');
+
+      categoryTabs.querySelectorAll('.cat-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          state.selectedCategory = btn.dataset.cat;
+          renderCategories();
+          renderProducts();
+        });
+      });
+    }
+
+    /* ================= РЕНДЕР КАРТОЧЕК ТОВАРОВ ================= */
+    function getFilteredProducts() {
+      return PRODUCTS.filter(item => {
+        const matchBlogger = state.selectedBlogger === 'all' || item.bloggerId === state.selectedBlogger;
+        const matchCategory = state.selectedCategory === 'all' || item.category === state.selectedCategory;
+        const q = state.searchQuery.trim().toLowerCase();
+        if (!q) return matchBlogger && matchCategory;
+
+        const bloggerName = getBloggerById(item.bloggerId).name.toLowerCase();
+        const matchSearch =
+          item.title.toLowerCase().includes(q) ||
+          item.shortDesc.toLowerCase().includes(q) ||
+          bloggerName.includes(q);
+
+        return matchBlogger && matchCategory && matchSearch;
+      });
+    }
+
+    function getCartItemQty(productId) {
+      const found = state.cart.find(c => c.id === productId);
+      return found ? found.qty : 0;
+    }
+
+    function renderProducts() {
+      const list = getFilteredProducts();
+      resultsCounter.textContent = `Найдено блюд: ${list.length}`;
+
+      if (list.length === 0) {
+        productsGrid.innerHTML = '';
+        emptyState.classList.add('visible');
+        return;
+      }
+
+      emptyState.classList.remove('visible');
+
+      productsGrid.innerHTML = list.map((item, idx) => {
+        const blogger = getBloggerById(item.bloggerId);
+        const qty = getCartItemQty(item.id);
+        const tagClass = item.tagType === 'hit' ? 'tag-hit' : item.tagType === 'spicy' ? 'tag-spicy' : 'tag-new';
+
+        return `
+          <article class="product-card" style="animation-delay: ${Math.min(idx * 0.04, 0.3)}s">
+            <div class="card-media" data-open-modal="${item.id}">
+              <img
+                src="${item.image}"
+                alt="${item.title}"
+                loading="lazy"
+                onerror="handleImgError(this, '${item.title.replace(/'/g, '')}')"
+              />
+              <div class="card-badges">
+                <span class="blogger-badge">
+                  <span class="blogger-dot" style="background: ${blogger.color};"></span>
+                  ${blogger.name}
+                </span>
+                ${item.tag ? `<span class="tag-badge ${tagClass}">${item.tag}</span>` : ''}
+              </div>
+            </div>
+
+            <div class="card-body">
+              <div class="card-meta">
+                <span>${item.weight}</span>
+                <span>${item.nutrition.kcal} ккал</span>
+              </div>
+              <h3 class="card-title" data-open-modal="${item.id}">${item.title}</h3>
+              <p class="card-desc">${item.shortDesc}</p>
+
+              <div class="card-footer">
+                <div class="price-block">
+                  ${item.oldPrice ? `<span class="old-price">${formatPrice(item.oldPrice)}</span>` : ''}
+                  <span class="current-price">${formatPrice(item.price)}</span>
+                </div>
+
+                ${qty === 0 ? `
+                  <button type="button" class="add-btn" data-add-id="${item.id}">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                      <line x1="12" y1="5" x2="12" y2="19"></line>
+                      <line x1="5" y1="12" x2="19" y2="12"></line>
+                    </svg>
+                    В корзину
+                  </button>
+                ` : `
+                  <div class="qty-control">
+                    <button type="button" class="qty-btn" data-dec-id="${item.id}" aria-label="Уменьшить">−</button>
+                    <span class="qty-val">${qty}</span>
+                    <button type="button" class="qty-btn" data-inc-id="${item.id}" aria-label="Увеличить">+</button>
+                  </div>
+                `}
+              </div>
+            </div>
+          </article>
+        `;
+      }).join('');
+    }
+
+    /* ================= ЛОГИКА КОРЗИНЫ ================= */
+    function addToCart(productId) {
+      const product = PRODUCTS.find(p => p.id === productId);
+      if (!product) return;
+
+      const existing = state.cart.find(c => c.id === productId);
+      if (existing) {
+        existing.qty += 1;
+      } else {
+        state.cart.push({ id: productId, qty: 1 });
+      }
+
+      saveCart();
+      updateCartUI();
+      renderProducts();
+      showToast(`«${product.title}» добавлен в корзину`);
+    }
+
+    function changeCartQty(productId, delta) {
+      const idx = state.cart.findIndex(c => c.id === productId);
+      if (idx === -1) return;
+
+      state.cart[idx].qty += delta;
+      if (state.cart[idx].qty <= 0) {
+        state.cart.splice(idx, 1);
+      }
+
+      saveCart();
+      updateCartUI();
+      renderProducts();
+    }
+
+    function clearCart() {
+      state.cart = [];
+      state.appliedPromo = null;
+      saveCart();
+      updateCartUI();
+      renderProducts();
+    }
+
+    function calculateTotals() {
+      let subtotal = 0;
+      let totalCount = 0;
+
+      state.cart.forEach(entry => {
+        const product = PRODUCTS.find(p => p.id === entry.id);
+        if (product) {
+          subtotal += product.price * entry.qty;
+          totalCount += entry.qty;
+        }
+      });
+
+      let discount = 0;
+      if (state.appliedPromo && PROMOCODES[state.appliedPromo]) {
+        discount = Math.round(subtotal * (PROMOCODES[state.appliedPromo].discountPercent / 100));
+      }
+
+      const afterDiscount = Math.max(0, subtotal - discount);
+      const deliveryFee = afterDiscount >= 700 || afterDiscount === 0 ? 0 : 149;
+      const total = afterDiscount + deliveryFee;
+
+      return { subtotal, discount, deliveryFee, total, totalCount };
+    }
+
+    function updateCartUI() {
+      const { subtotal, discount, deliveryFee, total, totalCount } = calculateTotals();
+      headerCartCount.textContent = totalCount;
+      drawerCartCount.textContent = totalCount;
+
+      if (state.cart.length === 0) {
+        cartFooter.style.display = 'none';
+        cartBody.innerHTML = `
+          <div class="cart-empty">
+            <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <circle cx="9" cy="21" r="1"></circle>
+              <circle cx="20" cy="21" r="1"></circle>
+              <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+            </svg>
+            <h3 style="color: #fff; margin-bottom: 6px;">Корзина пока пуста</h3>
+            <p style="font-size: 0.88rem;">Выбери сочный бургер от Мармока или комбо от Куплинова, чтобы начать!</p>
+          </div>
+        `;
+        return;
+      }
+
+      cartFooter.style.display = 'block';
+
+      const itemsHtml = state.cart.map(entry => {
+        const product = PRODUCTS.find(p => p.id === entry.id);
+        if (!product) return '';
+        const blogger = getBloggerById(product.bloggerId);
+
+        return `
+          <div class="cart-item">
+            <img
+              src="${product.image}"
+              alt="${product.title}"
+              class="cart-item-img"
+              onerror="handleImgError(this, '${product.title.replace(/'/g, '')}')"
+            />
+            <div class="cart-item-info">
+              <div class="cart-item-blogger">${blogger.name}</div>
+              <div class="cart-item-title">${product.title}</div>
+              <div class="cart-item-price">${formatPrice(product.price * entry.qty)}</div>
+            </div>
+            <div class="cart-item-controls">
+              <button type="button" class="cart-qty-btn" data-cart-dec="${product.id}">−</button>
+              <span style="font-weight: 700; font-size: 0.86rem; min-width: 20px; text-align: center;">${entry.qty}</span>
+              <button type="button" class="cart-qty-btn" data-cart-inc="${product.id}">+</button>
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      const promoValue = state.appliedPromo || '';
+      const promoInfo = state.appliedPromo ? PROMOCODES[state.appliedPromo] : null;
+
+      cartBody.innerHTML = `
+        <div>${itemsHtml}</div>
+
+        <div class="promo-box">
+          <div style="font-size: 0.78rem; font-weight: 700; margin-bottom: 8px; color: var(--text-secondary);">
+            Промокод блогера
+          </div>
+          <div class="promo-input-row">
+            <input type="text" id="promoCodeInput" class="promo-input" placeholder="Например: MARMOK10" value="${promoValue}" />
+            <button type="button" id="applyPromoBtn" class="promo-apply-btn">Применить</button>
+          </div>
+          <div id="promoStatus" class="promo-status ${promoInfo ? 'success' : ''}">
+            ${promoInfo ? `Активировано: ${promoInfo.label}` : ''}
+          </div>
+        </div>
+
+        <form class="checkout-form" id="checkoutForm">
+          <div class="form-group">
+            <label for="orderAddress">Адрес доставки *</label>
+            <input type="text" id="orderAddress" class="form-control" placeholder="Улица, дом, квартира / подъезд" required />
+          </div>
+          <div class="form-group">
+            <label for="orderPhone">Телефон для связи *</label>
+            <input type="tel" id="orderPhone" class="form-control" placeholder="+7 (999) 123-45-67" required />
+          </div>
+          <div class="form-group">
+            <label>Способ оплаты</label>
+            <div class="payment-methods" id="paymentMethods">
+              ${['Картой онлайн', 'СБП по QR', 'Наличными'].map(method => `
+                <button type="button" class="pay-option ${state.paymentMethod === method ? 'active' : ''}" data-pay="${method}">
+                  ${method}
+                </button>
+              `).join('')}
+            </div>
+          </div>
+        </form>
+      `;
+
+      // Обновление итоговых сумм
+      document.getElementById('subtotalAmount').textContent = formatPrice(subtotal);
+      const discountRow = document.getElementById('discountRow');
+      if (discount > 0 && promoInfo) {
+        discountRow.style.display = 'flex';
+        document.getElementById('discountLabel').textContent = promoInfo.label;
+        document.getElementById('discountAmount').textContent = `-${formatPrice(discount)}`;
+      } else {
+        discountRow.style.display = 'none';
+      }
+
+      const deliveryFeeText = document.getElementById('deliveryFeeText');
+      if (deliveryFee === 0) {
+        deliveryFeeText.textContent = 'Бесплатно';
+        deliveryFeeText.style.color = 'var(--accent-green)';
+      } else {
+        deliveryFeeText.textContent = formatPrice(deliveryFee) + ' (бесплатно от 700 ₽)';
+        deliveryFeeText.style.color = 'var(--text-secondary)';
+      }
+
+      document.getElementById('totalAmount').textContent = formatPrice(total);
+
+      // Обработчики внутри корзины
+      document.getElementById('applyPromoBtn').addEventListener('click', handleApplyPromo);
+      document.querySelectorAll('.pay-option').forEach(btn => {
+        btn.addEventListener('click', () => {
+          state.paymentMethod = btn.dataset.pay;
+          document.querySelectorAll('.pay-option').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+        });
+      });
+    }
+
+    function handleApplyPromo() {
+      const input = document.getElementById('promoCodeInput');
+      const statusEl = document.getElementById('promoStatus');
+      if (!input || !statusEl) return;
+
+      const code = input.value.trim().toUpperCase();
+      if (!code) {
+        state.appliedPromo = null;
+        updateCartUI();
+        return;
+      }
+
+      if (PROMOCODES[code]) {
+        state.appliedPromo = code;
+        updateCartUI();
+        showToast(`Промокод ${code} применён!`);
+      } else {
+        state.appliedPromo = null;
+        updateCartUI();
+        const newStatus = document.getElementById('promoStatus');
+        if (newStatus) {
+          newStatus.className = 'promo-status error';
+          newStatus.textContent = 'Промокод не найден. Попробуйте MARMOK10 или KUPLINOV20';
+        }
+      }
+    }
+
+    /* ================= МОДАЛЬНОЕ ОКНО ТОВАРА ================= */
+    function openProductModal(productId) {
+      const item = PRODUCTS.find(p => p.id === productId);
+      if (!item) return;
+
+      const blogger = getBloggerById(item.bloggerId);
+      const qty = getCartItemQty(item.id);
+
+      productModalContent.innerHTML = `
+        <button type="button" class="modal-close" id="closeProductModalBtn" title="Закрыть">✕</button>
+        <div class="modal-image-wrap">
+          <img
+            src="${item.image}"
+            alt="${item.title}"
+            onerror="handleImgError(this, '${item.title.replace(/'/g, '')}')"
+          />
+        </div>
+        <div class="modal-content">
+          <div>
+            <div class="modal-blogger-row" style="margin-bottom: 10px;">
+              <span class="blogger-badge" style="background: rgba(255,255,255,0.06);">
+                <span class="blogger-dot" style="background: ${blogger.color};"></span>
+                От блогера: ${blogger.name}
+              </span>
+              <span style="font-size: 0.8rem; color: var(--text-muted);">${item.weight}</span>
+            </div>
+
+            <h2 class="modal-title" style="margin-bottom: 12px;">${item.title}</h2>
+            <div class="modal-quote" style="margin-bottom: 14px;">${item.quote}</div>
+
+            <div class="modal-section-title">Состав блюда</div>
+            <p class="modal-ingredients" style="margin-bottom: 14px;">${item.ingredients}</p>
+
+            <div class="modal-section-title">Пищевая ценность на порцию</div>
+            <div class="nutrition-grid">
+              <div class="nutri-item"><strong>${item.nutrition.kcal}</strong><span>Ккал</span></div>
+              <div class="nutri-item"><strong>${item.nutrition.protein} г</strong><span>Белки</span></div>
+              <div class="nutri-item"><strong>${item.nutrition.fat} г</strong><span>Жиры</span></div>
+              <div class="nutri-item"><strong>${item.nutrition.carbs} г</strong><span>Углеводы</span></div>
+            </div>
+          </div>
+
+          <div class="modal-actions">
+            <div class="price-block">
+              ${item.oldPrice ? `<span class="old-price">${formatPrice(item.oldPrice)}</span>` : ''}
+              <span class="current-price" style="font-size: 1.4rem;">${formatPrice(item.price)}</span>
+            </div>
+
+            <button type="button" class="add-btn" id="modalAddToCartBtn" style="padding: 12px 24px; font-size: 0.95rem;">
+              ${qty > 0 ? `Добавить ещё (в корзине: ${qty})` : 'Добавить в корзину'}
+            </button>
+          </div>
+        </div>
+      `;
+
+      productModalBackdrop.classList.add('open');
+
+      document.getElementById('closeProductModalBtn').addEventListener('click', closeProductModal);
+      document.getElementById('modalAddToCartBtn').addEventListener('click', () => {
+        addToCart(item.id);
+        openProductModal(item.id); // Обновить счётчик на кнопке
+      });
+    }
+
+    function closeProductModal() {
+      productModalBackdrop.classList.remove('open');
+    }
+
+    /* ================= ОФОРМЛЕНИЕ ЗАКАЗА И ЧЕК ================= */
+    function handleOrderSubmit() {
+      if (state.cart.length === 0) return;
+
+      const addressInput = document.getElementById('orderAddress');
+      const phoneInput = document.getElementById('orderPhone');
+
+      const address = addressInput ? addressInput.value.trim() : '';
+      const phone = phoneInput ? phoneInput.value.trim() : '';
+
+      if (!address) {
+        addressInput.focus();
+        addressInput.style.borderColor = 'var(--accent-red)';
+        showToast('Укажите адрес доставки');
+        return;
+      }
+
+      if (!phone) {
+        phoneInput.focus();
+        phoneInput.style.borderColor = 'var(--accent-red)';
+        showToast('Укажите номер телефона');
+        return;
+      }
+
+      const { total, totalCount } = calculateTotals();
+      const orderNum = 'TF-' + Math.floor(100000 + Math.random() * 900000);
+      const now = new Date();
+      const timeStr = now.toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' });
+
+      receiptModalContent.innerHTML = `
+        <div class="receipt-check">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8">
+            <polyline points="20 6 9 17 4 12"></polyline>
+          </svg>
+        </div>
+        <h2 style="font-size: 1.45rem; font-weight: 900;">Заказ передан на кухню!</h2>
+        <p style="color: var(--text-secondary); font-size: 0.9rem; margin-top: 6px;">
+          Повара уже готовят ваши блюда. Курьер прибудет ориентировочно через 30 минут.
+        </p>
+        <div class="receipt-number">Чек № ${orderNum}</div>
+
+        <div class="receipt-details">
+          <div class="receipt-line">
+            <span style="color: var(--text-muted);">Время заказа:</span>
+            <strong>${timeStr}</strong>
+          </div>
+          <div class="receipt-line">
+            <span style="color: var(--text-muted);">Позиций в чеке:</span>
+            <strong>${totalCount} шт.</strong>
+          </div>
+          <div class="receipt-line">
+            <span style="color: var(--text-muted);">Адрес доставки:</span>
+            <strong style="max-width: 210px; text-align: right;">${address}</strong>
+          </div>
+          <div class="receipt-line">
+            <span style="color: var(--text-muted);">Оплата:</span>
+            <strong>${state.paymentMethod}</strong>
+          </div>
+          <div class="receipt-line" style="margin-top: 6px; padding-top: 8px; border-top: 1px dashed rgba(255,255,255,0.15);">
+            <span style="color: var(--text-primary); font-weight: 700;">Оплачено:</span>
+            <strong style="color: var(--accent-orange); font-size: 1.05rem;">${formatPrice(total)}</strong>
+          </div>
+        </div>
+
+        <button type="button" class="checkout-submit-btn" id="closeReceiptBtn">Отлично, жду курьера!</button>
+      `;
+
+      closeCart();
+      clearCart();
+      receiptModalBackdrop.classList.add('open');
+
+      document.getElementById('closeReceiptBtn').addEventListener('click', () => {
+        receiptModalBackdrop.classList.remove('open');
+      });
+    }
+
+    /* ================= ОТКРЫТИЕ / ЗАКРЫТИЕ КОРЗИНЫ ================= */
+    function openCart() {
+      cartDrawer.classList.add('open');
+      cartOverlay.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeCart() {
+      cartDrawer.classList.remove('open');
+      cartOverlay.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    /* ================= ГЛОБАЛЬНЫЕ СЛУШАТЕЛИ СОБЫТИЙ ================= */
+    document.getElementById('openCartBtn').addEventListener('click', openCart);
+    document.getElementById('closeCartBtn').addEventListener('click', closeCart);
+    cartOverlay.addEventListener('click', closeCart);
+
+    document.getElementById('clearCartBtn').addEventListener('click', () => {
+      if (state.cart.length > 0) {
+        clearCart();
+        showToast('Корзина очищена');
+      }
+    });
+
+    document.getElementById('submitOrderBtn').addEventListener('click', handleOrderSubmit);
+
+    // Делегирование кликов по карточкам товаров
+    productsGrid.addEventListener('click', e => {
+      const addBtn = e.target.closest('[data-add-id]');
+      if (addBtn) {
+        addToCart(Number(addBtn.dataset.addId));
+        return;
+      }
+
+      const incBtn = e.target.closest('[data-inc-id]');
+      if (incBtn) {
+        changeCartQty(Number(incBtn.dataset.incId), 1);
+        return;
+      }
+
+      const decBtn = e.target.closest('[data-dec-id]');
+      if (decBtn) {
+        changeCartQty(Number(decBtn.dataset.decId), -1);
+        return;
+      }
+
+      const modalTrigger = e.target.closest('[data-open-modal]');
+      if (modalTrigger) {
+        openProductModal(Number(modalTrigger.dataset.openModal));
+      }
+    });
+
+    // Делегирование кликов в корзине
+    cartBody.addEventListener('click', e => {
+      const incBtn = e.target.closest('[data-cart-inc]');
+      if (incBtn) {
+        changeCartQty(Number(incBtn.dataset.cartInc), 1);
+        return;
+      }
+      const decBtn = e.target.closest('[data-cart-dec]');
+      if (decBtn) {
+        changeCartQty(Number(decBtn.dataset.cartDec), -1);
+      }
+    });
+
+    // Закрытие модалок по клику на фон и Escape
+    productModalBackdrop.addEventListener('click', e => {
+      if (e.target === productModalBackdrop) closeProductModal();
+    });
+
+    receiptModalBackdrop.addEventListener('click', e => {
+      if (e.target === receiptModalBackdrop) receiptModalBackdrop.classList.remove('open');
+    });
+
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') {
+        closeProductModal();
+        closeCart();
+        receiptModalBackdrop.classList.remove('open');
+      }
+    });
+
+    // Поиск в реальном времени
+    searchInput.addEventListener('input', e => {
+      state.searchQuery = e.target.value;
+      searchClear.classList.toggle('visible', state.searchQuery.length > 0);
+      renderProducts();
+    });
+
+    searchClear.addEventListener('click', () => {
+      state.searchQuery = '';
+      searchInput.value = '';
+      searchClear.classList.remove('visible');
+      renderProducts();
+    });
+
+    // Сброс всех фильтров
+    function resetAllFilters() {
+      state.selectedBlogger = 'all';
+      state.selectedCategory = 'all';
+      state.searchQuery = '';
+      searchInput.value = '';
+      searchClear.classList.remove('visible');
+      renderBloggers();
+      renderCategories();
+      renderProducts();
+    }
+
+    document.getElementById('resetAllFiltersBtn').addEventListener('click', resetAllFilters);
+    document.getElementById('logoReset').addEventListener('click', e => {
+      e.preventDefault();
+      resetAllFilters();
+    });
+
+    // Быстрое применение промокода из баннера
+    document.querySelectorAll('[data-copy-promo]').forEach(chip => {
+      chip.addEventListener('click', () => {
+        const code = chip.dataset.copyPromo;
+        if (PROMOCODES[code]) {
+          state.appliedPromo = code;
+          updateCartUI();
+          showToast(`Промокод ${code} активирован в корзине!`);
+        }
+      });
+    });
+
+    /* ================= ИНИЦИАЛИЗАЦИЯ ================= */
+    renderBloggers();
+    renderCategories();
+    renderProducts();
+    updateCartUI();
+  </script>
+</body>
+</html>
